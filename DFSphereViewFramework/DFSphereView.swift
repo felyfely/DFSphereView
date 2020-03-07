@@ -45,17 +45,17 @@ open class DFSphereView: UIView, UIGestureRecognizerDelegate {
             let point = simd_double3(x: x, y: y, z: z)
             coordinate.append(point)
             
-            let time: CGFloat = (CGFloat(arc4random() % 10) + 10.0) / 20.0
-            UIView.animate(withDuration: TimeInterval(time), delay: 0.0, options: .curveEaseOut, animations: {() -> Void in
+            let time = Double.random(in: 1 ..< 2)
+            UIView.animate(withDuration: time, delay: 0.0, options: .curveEaseOut, animations: {() -> Void in
                 self.setTagOf(point, andIndex: i)
             }, completion: {(_ finished: Bool) -> Void in
             })
         }
         
-        let a:NSInteger = NSInteger(arc4random() % 10) - 5
-        let b:NSInteger = NSInteger(arc4random() % 10) - 5
+        let a = Double.random(in: -5 ..< 5)
+        let b = Double.random(in: -5 ..< 5)
         normalDirection = simd_double3(x: Double(a), y: Double(b), z: 0)
-        self.timerStart()
+        timerStart()
     }
     
     /// Starts the cloud autorotation animation.
@@ -69,7 +69,7 @@ open class DFSphereView: UIView, UIGestureRecognizerDelegate {
     }
 
     private func setup() {
-        let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.handlePanGesture))
+        let gesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
         self.addGestureRecognizer(gesture)
         
         inertia = CADisplayLink(target: self, selector: #selector(inertiaStep))
@@ -94,7 +94,7 @@ open class DFSphereView: UIView, UIGestureRecognizerDelegate {
         let rPoint = rotateSphere(point: point, direction: direction, angle: angle)
         coordinate[index] = rPoint
         
-        self.setTagOf(rPoint, andIndex: index)
+        setTagOf(rPoint, andIndex: index)
     }
     
     func setTagOf(_ point: simd_double3, andIndex index: Int) {
@@ -117,7 +117,7 @@ open class DFSphereView: UIView, UIGestureRecognizerDelegate {
     
     @objc func autoTurnRotation() {
         for i in 0..<tags.count {
-            self.updateFrameOfPoint(i, direction: normalDirection, andAngle: 0.002)
+            updateFrameOfPoint(i, direction: normalDirection, andAngle: 0.002)
         }
     }
     
@@ -139,9 +139,9 @@ open class DFSphereView: UIView, UIGestureRecognizerDelegate {
         }
         else {
             velocity -= 70.0
-            let angle: CGFloat = velocity / self.frame.size.width * 2.0 * CGFloat(inertia.duration)
+            let angle: CGFloat = velocity / frame.size.width * 2.0 * CGFloat(inertia.duration)
             for i in 0..<tags.count {
-                self.updateFrameOfPoint(i, direction: normalDirection, andAngle: angle)
+                updateFrameOfPoint(i, direction: normalDirection, andAngle: angle)
             }
         }
     }
@@ -149,8 +149,8 @@ open class DFSphereView: UIView, UIGestureRecognizerDelegate {
     @objc func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
         if gesture.state == .began {
             last = gesture.location(in: self)
-            self.timerStop()
-            self.inertiaStop()
+            timerStop()
+            inertiaStop()
         }
         else if gesture.state == .changed {
             let current = gesture.location(in: self)
@@ -159,8 +159,8 @@ open class DFSphereView: UIView, UIGestureRecognizerDelegate {
             let direction = simd_double3(x: deltaY, y: deltaX, z: 0)
             let distance: CGFloat = CGFloat(sqrt(direction.x * direction.x + direction.y * direction.y))
             let angle: CGFloat = distance / (frame.size.width / 2.0)
-            for i in 0..<tags.count {
-                self.updateFrameOfPoint(i, direction: direction, andAngle: angle)
+            for i in 0 ..< tags.count {
+                updateFrameOfPoint(i, direction: direction, andAngle: angle)
             }
             normalDirection = direction
             last = current
@@ -168,7 +168,7 @@ open class DFSphereView: UIView, UIGestureRecognizerDelegate {
         else if gesture.state == .ended {
             let velocityP = gesture.velocity(in: self)
             velocity = sqrt(velocityP.x * velocityP.x + velocityP.y * velocityP.y)
-            self.inertiaStart()
+            inertiaStart()
         }
         
     }
@@ -178,10 +178,8 @@ extension DFSphereView {
     fileprivate func rotateSphere(point: simd_double3, direction: simd_double3, angle: CGFloat) -> simd_double3 {
         if direction.x == 0 && direction.y == 0 && direction.z == 0 { return point }
         if angle == 0 { return point }
-        let angleVec = simd_double3(x: Double(direction.x), y: Double(direction.y), z: Double(direction.z))
-        let pointVec = simd_double3(x: Double(point.x), y: Double(point.y), z: Double(point.z))
-        let quaternion = simd_quatd(angle: Double(angle), axis: simd_normalize(angleVec))
-        let rotatedVector = quaternion.act(pointVec)
+        let quaternion = simd_quatd(angle: Double(angle), axis: simd_normalize(direction))
+        let rotatedVector = quaternion.act(point)
         return simd_double3(x: rotatedVector.x, y: rotatedVector.y, z: rotatedVector.z)
     }
 
