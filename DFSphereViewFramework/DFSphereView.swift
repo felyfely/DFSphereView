@@ -97,7 +97,7 @@ open class DFSphereView: UIView, UIGestureRecognizerDelegate {
     
     func updateFrameOfPoint(_ index: Int, direction: simd_double3, andAngle angle: CGFloat) {
         let point: simd_double3 = coordinate[index]
-        let rPoint = DBPointMakeRotation(point: point, direction: direction, angle: angle)
+        let rPoint = rotateSphere(point: point, direction: direction, angle: angle)
         coordinate[index] = rPoint
         
         self.setTagOf(rPoint, andIndex: index)
@@ -183,7 +183,7 @@ open class DFSphereView: UIView, UIGestureRecognizerDelegate {
 }
 
 extension DFSphereView {
-    fileprivate func DBPointMakeRotation(point: simd_double3, direction: simd_double3, angle: CGFloat) -> simd_double3 {
+    fileprivate func rotateSphere(point: simd_double3, direction: simd_double3, angle: CGFloat) -> simd_double3 {
         if direction.x == 0 && direction.y == 0 && direction.z == 0 { return point }
         if angle == 0 { return point }
         let angleVec = simd_double3(x: Double(direction.x), y: Double(direction.y), z: Double(direction.z))
