@@ -28,10 +28,10 @@ open class DFSphereView: UIView, UIGestureRecognizerDelegate {
             addSubview(v)
         }
         tags = array
-        for i in 0..<tags.count {
-            let view:UIView = tags[i]
+        for i in 0 ..< tags.count {
+            let view = tags[i]
             view.tag = i
-            view.center = CGPoint(x: self.frame.size.width / 2.0, y: self.frame.size.height / 2.0)
+            view.center = CGPoint(x: frame.size.width / 2.0, y: frame.size.height / 2.0)
         }
         let p1 = .pi * (3 - sqrt(5))
         let p2 = 2.0 / Double(tags.count)
@@ -58,16 +58,12 @@ open class DFSphereView: UIView, UIGestureRecognizerDelegate {
         self.timerStart()
     }
     
-    /**
-     *  Starts the cloud autorotation animation.
-     */
+    /// Starts the cloud autorotation animation.
     public func timerStart() {
         timer.isPaused = false
     }
     
-    /**
-     *  Stops the cloud autorotation animation.
-     */
+    ///  Stops the cloud autorotation animation.
     public func timerStop() {
         timer.isPaused = true
     }
@@ -92,9 +88,7 @@ open class DFSphereView: UIView, UIGestureRecognizerDelegate {
         super.init(coder: aDecoder)
         setup()
     }
-    
-    // MARK: - set frame of point
-    
+        
     func updateFrameOfPoint(_ index: Int, direction: simd_double3, andAngle angle: CGFloat) {
         let point: simd_double3 = coordinate[index]
         let rPoint = rotateSphere(point: point, direction: direction, angle: angle)
@@ -105,7 +99,7 @@ open class DFSphereView: UIView, UIGestureRecognizerDelegate {
     
     func setTagOf(_ point: simd_double3, andIndex index: Int) {
         let view: UIView = tags[index]
-        view.center = CGPoint(x: (point.x + 1) * Double(self.frame.size.width / 2.0), y: (point.y + 1) * Double(self.frame.size.height / 2.0))
+        view.center = CGPoint(x: (point.x + 1) * Double(frame.size.width / 2.0), y: (point.y + 1) * Double(frame.size.height / 2.0))
         
         let transform: CGFloat = CGFloat((point.z + 2) / 3)
         view.transform = CGAffineTransform.identity.scaledBy(x: transform, y: transform)
@@ -151,9 +145,7 @@ open class DFSphereView: UIView, UIGestureRecognizerDelegate {
             }
         }
     }
-    
-    // MARK: - gesture selector
-    
+        
     @objc func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
         if gesture.state == .began {
             last = gesture.location(in: self)
@@ -166,7 +158,7 @@ open class DFSphereView: UIView, UIGestureRecognizerDelegate {
             let deltaX = Double(current.x - last.x)
             let direction = simd_double3(x: deltaY, y: deltaX, z: 0)
             let distance: CGFloat = CGFloat(sqrt(direction.x * direction.x + direction.y * direction.y))
-            let angle: CGFloat = distance / (self.frame.size.width / 2.0)
+            let angle: CGFloat = distance / (frame.size.width / 2.0)
             for i in 0..<tags.count {
                 self.updateFrameOfPoint(i, direction: direction, andAngle: angle)
             }
