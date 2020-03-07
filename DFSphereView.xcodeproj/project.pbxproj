@@ -17,8 +17,8 @@
 		5B1B939F2413F91F006C8B3F /* DFSphereViewFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B1B93982413F91F006C8B3F /* DFSphereViewFramework.framework */; };
 		5B1B93A02413F91F006C8B3F /* DFSphereViewFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5B1B93982413F91F006C8B3F /* DFSphereViewFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5B1B93A62413F948006C8B3F /* DFSphereView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1B93A52413F948006C8B3F /* DFSphereView.swift */; };
-		5B1B93A82413F9D3006C8B3F /* Readme.md in Resources */ = {isa = PBXBuildFile; fileRef = 5B1B93A72413F9D3006C8B3F /* Readme.md */; };
 		5B1B93AA2413FA1D006C8B3F /* Simulator Screen Shot - iPhone 11 Pro Max - 2020-03-07 at 23.49.01.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B1B93A92413FA1D006C8B3F /* Simulator Screen Shot - iPhone 11 Pro Max - 2020-03-07 at 23.49.01.png */; };
+		5B1B93AC2413FD07006C8B3F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 5B1B93AB2413FD07006C8B3F /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,8 +58,8 @@
 		5B1B939A2413F91F006C8B3F /* DFSphereViewFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DFSphereViewFramework.h; sourceTree = "<group>"; };
 		5B1B939B2413F91F006C8B3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B1B93A52413F948006C8B3F /* DFSphereView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFSphereView.swift; sourceTree = "<group>"; };
-		5B1B93A72413F9D3006C8B3F /* Readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
 		5B1B93A92413FA1D006C8B3F /* Simulator Screen Shot - iPhone 11 Pro Max - 2020-03-07 at 23.49.01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Simulator Screen Shot - iPhone 11 Pro Max - 2020-03-07 at 23.49.01.png"; sourceTree = "<group>"; };
+		5B1B93AB2413FD07006C8B3F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,8 +102,8 @@
 		5B1B937E2413F85B006C8B3F /* DFSphereView */ = {
 			isa = PBXGroup;
 			children = (
+				5B1B93AB2413FD07006C8B3F /* README.md */,
 				5B1B93A92413FA1D006C8B3F /* Simulator Screen Shot - iPhone 11 Pro Max - 2020-03-07 at 23.49.01.png */,
-				5B1B93A72413F9D3006C8B3F /* Readme.md */,
 				5B1B937F2413F85B006C8B3F /* AppDelegate.swift */,
 				5B1B93812413F85B006C8B3F /* SceneDelegate.swift */,
 				5B1B93832413F85B006C8B3F /* ViewController.swift */,
@@ -221,8 +221,8 @@
 			files = (
 				5B1B93AA2413FA1D006C8B3F /* Simulator Screen Shot - iPhone 11 Pro Max - 2020-03-07 at 23.49.01.png in Resources */,
 				5B1B938C2413F85C006C8B3F /* LaunchScreen.storyboard in Resources */,
+				5B1B93AC2413FD07006C8B3F /* README.md in Resources */,
 				5B1B93892413F85C006C8B3F /* Assets.xcassets in Resources */,
-				5B1B93A82413F9D3006C8B3F /* Readme.md in Resources */,
 				5B1B93872413F85B006C8B3F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
